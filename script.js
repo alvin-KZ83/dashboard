@@ -1,4 +1,33 @@
 let tasks = []
+let currentTaskIndex = 0; // Track the current task index
+
+let stylePoints = 0;
+
+const styleCommands = [
+    'fill',       // Sets the fill color for shapes.
+    'stroke',     // Sets the stroke (outline) color for shapes.
+    'strokeWeight', // Sets the stroke thickness.
+    'textSize',   // Sets the font size for text.
+    'textFont',   // Sets the font for text.
+    'textAlign',  // Sets the alignment of text.
+    'background', // Sets the background color of the canvas.
+    'noFill',     // Disables filling shapes.
+    'noStroke',   // Disables stroke (outline) for shapes.
+    'color'       // Creates a color object for custom colors.
+];
+
+// Declare the variables for colors and speed
+let primaryColor = '#303030'; // Example: orange
+let secondaryColor = '#606060'; // Example: green
+let tertiaryColor = '#909090'; // Example: blue
+let speed = `${5 - currentTaskIndex}s`; // Example: 1 second per full rotation
+
+// Set the CSS variables dynamically
+document.documentElement.style.setProperty('--primary-color', primaryColor);
+document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+document.documentElement.style.setProperty('--tertiary-color', tertiaryColor);
+document.documentElement.style.setProperty('--animation-speed', speed);
+
 
 fetch('tasks.json')
     .then(response => response.json())
@@ -8,7 +37,23 @@ fetch('tasks.json')
     })
     .catch(error => console.error('タスクの読み込みエラー:', error))  // Translated error message
 
-let currentTaskIndex = 0; // Track the current task index
+// Function to adjust the colors based on styleCount
+function updateColorsBasedOnStyleCount(styleCount) {
+    // Calculate the intensity for each color channel
+    let intensity = Math.min(255, styleCount * 10); // Increase intensity, capped at 255
+
+    // Adjust the colors
+    primaryColor = `rgb(${30 + intensity}, 30, 30)`; // Red
+    secondaryColor = `rgb(60, ${60 + intensity}, 60)`; // Green
+    tertiaryColor = `rgb(90, 90, ${90 + intensity})`; // Blue
+
+    // Set the CSS variables dynamically
+    document.documentElement.style.setProperty('--primary-color', primaryColor);
+    document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+    document.documentElement.style.setProperty('--tertiary-color', tertiaryColor);
+    document.documentElement.style.setProperty('--animation-speed', speed);
+
+}
 
 // Display the current task
 function displayTask() {
@@ -25,6 +70,13 @@ function displayTask() {
         `
 }
 
+function countFunctionCalls(code, funcName) {
+    // Create a regular expression to match the function name followed by an opening parenthesis
+    const regex = new RegExp(`${funcName}\\(`, 'g'); // 'g' for global search to find all occurrences
+    const matches = code.match(regex); // Returns an array of all matches or null if no matches
+    return matches ? matches.length : 0; // If matches found, return the count, otherwise 0
+}
+
 function checkCode() {
     if (currentTaskIndex == 5) {
         document.getElementById("feedback").innerText = "すべてのタスクが完了しました！";  // Translated "All tasks complete!"
@@ -33,6 +85,14 @@ function checkCode() {
 
     const rawcode = document.getElementById("codeInput").value;
     const code = rawcode.replace(/\s+/g, '')
+
+    let styleCount = 0
+    
+    styleCommands.forEach(cmd => {
+        styleCount += countFunctionCalls(code, cmd); 
+    });
+
+    updateColorsBasedOnStyleCount(styleCount);
 
     let flagList =  tasks[currentTaskIndex].flags
     let flagCheck = flagList.map(() => true)
@@ -78,11 +138,11 @@ function showNextTask() {
     if (nextTask) {
         document.getElementById("task").innerHTML = `
         <h2>タスク</h2>
-        <p>${currentTask.task}</p>
+        <p>${nextTask.task}</p>
         <h2>説明</h2>
-        <p>${currentTask.desc}</p>
+        <p>${nextTask.desc}</p>
         <h2>ヒント</h2>
-        <p>${currentTask.hint}</p>
+        <p>${nextTask.hint}</p>
         `;  // Translated "Hint"
     } else {
         document.getElementById("task").innerHTML = 
