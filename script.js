@@ -15,69 +15,45 @@ function displayTask() {
     const taskDiv = document.getElementById("task");
     const currentTask = tasks[currentTaskIndex];
 
-    taskDiv.innerHTML = `
-        <p><strong>Task:</strong> ${currentTask.task}</p>
+    taskDiv.innerHTML = `<p><strong>Task:</strong> ${currentTask.task}</p>
         <p><strong>Description:</strong> ${currentTask.desc}</p>
-        <p><strong>Hint:</strong> ${currentTask.hint}</p>
-    ;
-    `
+        <p><strong>Hint:</strong> ${currentTask.hint}</p>`
 }
 
 // Validate the student's code against the task
 
 function checkCode() {
-    const code = document.getElementById("codeInput").value;
-    const currentTask = tasks[currentTaskIndex];
+    const rawcode = document.getElementById("codeInput").value;
+    const code = rawcode.replace(/\s+/g, '')
 
     // Validation logic for each task
     switch (currentTaskIndex) {
         case 0: // Task 1: Set up the canvas and define variables
             // Check if gravity, velocity, ball, and floor vectors are created'
-            let flag1 = code.includes("createCanvas(400, 800)")
-            let flag2 = code.includes("g") && code.includes("createVector(0, 0.098)")
-            let flag3 = code.includes("v") && code.includes("createVector(0, 0)")
-            let flag4 = code.includes("ball")
-            let flag5 = code.includes("floor")
+            let flagList =  tasks[currentTaskIndex].flags
+            let flagCheck = flagList.map(() => true)
 
-            let flags = 5
+            for (let i = 0; i < flagCheck.length; i++) {
+                const keys = flagList[i].split(' ');
+                keys.forEach(element => {
+                    flagCheck[i] = flagCheck[i] && code.includes(element)
+                });
+            }
 
+            let feedbacks = tasks[currentTaskIndex].feedbacks
             let feedbackText = ""
             let points = 0
 
-            if (!flag1) {
-                feedbackText += "❌ Remember to set up the canvas correctly.\n"
-            } else {
-                points += 1
+            for (let i = 0; i < flagCheck.length; i++) {
+                if (!flagCheck[i]) {
+                    feedbackText += feedbacks[i]
+                } else {
+                    points += 1
+                }
             }
 
-            if (!flag2) {
-                feedbackText += "❌ Remember to set up the gravity (g) correctly.\n"
-            } else {
-                points += 1
-            }
-
-
-            if (!flag3) {
-                feedbackText += "❌ Remember to set up the velocity (v) correctly.\n"
-            } else {
-                points += 1
-            }
-
-
-            if (!flag4) {
-                feedbackText += "❌ Remember to set up ball correctly.\n"
-            } else {
-                points += 1
-            }
-
-
-            if (!flag5) {
-                feedbackText += "❌ Remember to set up floor correctly.\n"
-            } else {
-                points += 1
-            }
-
-            if (flag1 && flag2 && flag3 && flag4 && flag5) {
+            if (points == flagCheck.length) {
+                // all correct
                 document.getElementById("feedback").innerText = "✅ Great job! Canvas and variables are set up.";
                 currentTaskIndex++;  // Move to the next task
                 showNextTask();  // Update the task on the page
@@ -86,12 +62,9 @@ function checkCode() {
             }
 
             // Update progress bar
-            let progress = (points / flags) * 100; // Calculate percentage
-            document.getElementById("taskProgress").max = flags; // Set the flags
-            document.getElementById("taskProgress").value = points; // Set the progress value
-
-            // Update pie chart
-            updatePieChart(points, 5); // Pass the current points and max points (5 tasks)
+            let progress = (points / flagList.length) * 100; // Calculate percentage
+            document.getElementById(`taskProgress${currentTaskIndex + 1}`).max = flagList.length; // Set the flags
+            document.getElementById(`taskProgress${currentTaskIndex + 1}`).value = points; // Set the progress value
 
             break;
         case 1: // Task 2: Draw the ball and floor
@@ -144,11 +117,9 @@ function showNextTask() {
     const nextTask = tasks[currentTaskIndex];
 
     if (nextTask) {
-        document.getElementById("task").innerHTML = `
-            <p><strong>Task:</strong> ${nextTask.task}</p>
+        document.getElementById("task").innerHTML = `<p><strong>Task:</strong> ${nextTask.task}</p>
             <p><strong>Description:</strong> ${nextTask.desc}</p>
-            <p><strong>Hint:</strong> ${nextTask.hint}</p>
-            `
+            <p><strong>Hint:</strong> ${nextTask.hint}</p>`
         ;
         checkCode();
     } else {

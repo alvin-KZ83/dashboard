@@ -1,0 +1,10 @@
+let flagCheck = flagList.map(() => true)
+
+            for (let i = 0; i < flagCheck.length; i++) {
+                const keys = flagList[i].split(' ');
+                keys.forEach(element => {
+                    flagCheck[i] = flagCheck[i] && code.includes(element)
+                });
+            }
+
+            console.log(flagCheck)

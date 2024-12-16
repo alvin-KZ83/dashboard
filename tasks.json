@@ -4,11 +4,18 @@
       "desc": "Create a canvas of size 400x800 pixels. Define vectors for gravity (0, 0.098), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
       "hint": "Use `createVector()` to define the gravity, velocity, ball position, and floor position.",
       "flags": [
-        "createCanvas(400, 800)",
-        "createVector(0, 0.098)",
-        "createVector(0, 0)",
+        "createCanvas(400,800)",
+        "g=createVector(0,0.098)",
+        "v=createVector(0,0)",
         "ball",
         "floor"
+      ],
+      "feedbacks": [
+        "❌ Remember to set up the canvas correctly!\n",
+        "❌ Remember to set up gravity 'g' correctly (0, 0.098)!\n",
+        "❌ Remember to set up velocity 'v' correctly (0, 0.098)!\n",
+        "❌ Remember to set up a ball!\n",
+        "❌ Remember to set up the floor!\n"
       ]
     },
     {
