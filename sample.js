@@ -21,7 +21,7 @@ function setup() {
     fill(255)
     rect(floor.x, floor.y, 400, 20);
     
-    if (ball.y + 50 / 2 > floor.y) {
+    if (ball.y + 50 / 2 >= floor.y) {
       v.mult(-1);
     }
   }

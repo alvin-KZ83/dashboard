@@ -1,59 +1,83 @@
 [
-    {
-      "task": "Set up the canvas and define variables",
-      "desc": "Create a canvas of size 400x800 pixels. Define vectors for gravity (0, 0.098), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
-      "hint": "Use `createVector()` to define the gravity, velocity, ball position, and floor position.",
-      "flags": [
-        "createCanvas(400,800)",
-        "g=createVector(0,0.098)",
-        "v=createVector(0,0)",
-        "ball",
-        "floor"
-      ],
-      "feedbacks": [
-        "❌ Remember to set up the canvas correctly!\n",
-        "❌ Remember to set up gravity 'g' correctly (0, 0.098)!\n",
-        "❌ Remember to set up velocity 'v' correctly (0, 0.098)!\n",
-        "❌ Remember to set up a ball!\n",
-        "❌ Remember to set up the floor!\n"
-      ]
-    },
-    {
-      "task": "Draw the ball and floor",
-      "desc": "Use the vectors you created for the ball and the floor to draw them onto the canvas. The ball should be drawn as a circle, and the floor should be a rectangle at the bottom of the canvas.",
-      "hint": "Use the `circle()` function for the ball and the `rect()` function for the floor. Use the vectors for their positions and sizes.",
-      "flags": [
-        "circle(",
-        "rect("
-      ]
-    },
-    {
-      "task": "Implement gravity and ball movement",
-      "desc": "Add gravity to the ball's velocity. Then, update the ball’s position based on its velocity. The ball should move continuously downward due to gravity.",
-      "hint": "Since `draw()` runs 60 times per second, apply the gravity to the velocity every frame, and update the ball's position accordingly. Use the `add()` method for velocity and gravity vectors.",
-      "flags": [
-        "v.add(g)",
-        "ball.add(v)"
-      ]
-    },
-    {
-      "task": "Detect collision between the ball and the floor",
-      "desc": "When the ball touches the floor, it should bounce. Implement a check to detect when the ball’s bottom edge reaches the floor and reverse its velocity when it collides.",
-      "hint": "Think about how the ball’s velocity changes when it hits the floor. Use an `if` statement to check if the ball has reached the floor and reverse the vertical velocity (`v.y`) to simulate bouncing.",
-      "flags": [
-        "if (ball.y + 50 / 2 > floor.y)",
-        "v.mult(-1)"
-      ]
-    },
-    {
-      "task": "Allow ball and floor movement",
-      "desc": "Enable interaction with the ball and floor using the mouse. Left-click should move the ball to where the mouse is, and right-click should allow you to move the floor up or down.",
-      "hint": "Use the `mousePressed()` function to detect mouse clicks. On left-click, set the ball's position to the mouse coordinates. On right-click, adjust the floor's position vertically.",
-      "flags": [
-        "mousePressed()",
-        "ball = createVector(mouseX, mouseY)",
-        "floor.y = mouseY"
-      ]
-    }
-  ]
-  
+  {
+    "task": "Set up the canvas and define variables",
+    "desc": "Create a canvas of size 400x800 pixels. Define vectors for gravity (0, 0.098), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
+    "hint": "Use `createVector()` to define the gravity, velocity, ball position, and floor position.",
+    "flags": [
+      "createCanvas(400,800)",
+      "g=createVector(0,0.098)",
+      "v=createVector(0,0)",
+      "ball",
+      "floor"
+    ],
+    "feedbacks": [
+      "❌ キャンバスを正しく設定することを忘れないでください！\n",
+      "❌ 重力 'g' を正しく設定することを忘れないでください！（0, 0.098）\n",
+      "❌ 速度 'v' を正しく設定することを忘れないでください！（0, 0）\n",
+      "❌ ボールの位置を定義することを忘れないでください！\n",
+      "❌ 床の位置を定義することを忘れないでください！\n"
+    ]
+  },
+  {
+    "task": "Draw the ball and floor",
+    "desc": "Use the vectors you created for the ball and the floor to draw them onto the canvas. The ball should be drawn as a circle of size 50, and the floor should be a rectangle at the bottom of the canvas.",
+    "hint": "Use the `circle()` function for the ball and the `rect()` function for the floor. Use the vectors for their positions and sizes.",
+    "flags": [
+      "circle(",
+      "ball.x,ball.y",
+      ",50)",
+      "rect(",
+      "floor.x,floor.y"
+    ],
+    "feedbacks": [
+      "❌ `circle(x, y, r)` 関数を正しく使用することを忘れないでください！\n",
+      "❌ 定義したボールの位置を使用することを忘れないでください！\n",
+      "❌ ボールのサイズを50に設定することを忘れないでください！\n",
+      "❌ `rect(x, y, w, h)` 関数を正しく使用することを忘れないでください！\n",
+      "❌ 定義した床の位置を使用することを忘れないでください！\n"
+    ]
+  },
+  {
+    "task": "Implement gravity and ball movement",
+    "desc": "Add gravity to the ball's velocity. Then, update the ball’s position based on its velocity. The ball should move continuously downward due to gravity.",
+    "hint": "Since `draw()` runs 60 times per second, apply the gravity to the velocity every frame, and update the ball's position accordingly. Use the `add()` method for velocity and gravity vectors.",
+    "flags": [
+      "v.add(g)",
+      "ball.add(v)"
+    ],
+    "feedbacks": [
+      "❌ 速度に正しく重力を加えることを忘れないでください！\n",
+      "❌ 速度を使ってボールの位置を正しく更新することを忘れないでください！\n"
+    ]
+  },
+  {
+    "task": "Detect collision between the ball and the floor",
+    "desc": "When the ball touches the floor, it should bounce. Implement a check to detect when the ball’s bottom edge reaches the floor and reverse its velocity when it collides.",
+    "hint": "Think about how the ball’s velocity changes when it hits the floor. Use an `if` statement to check if the ball has reached the floor and reverse the vertical velocity (`v.y`) to simulate bouncing.",
+    "flags": [
+      "if",
+      "ball.y+50/2>=floor.y",
+      "v.mult(-1)"
+    ],
+    "feedbacks": [
+      "❌ `if`文を使用することを忘れないでください！\n",
+      "❌ ボールの下端と床の上端を比較していることを確認してください！\n",
+      "❌ ボールが床に当たったときに速度が正しく反転することを確認してください！\n"
+    ]
+  },
+  {
+    "task": "Allow ball and floor movement",
+    "desc": "Enable interaction with the ball and floor using the mouse. Left-click should move the ball to where the mouse is, and right-click should allow you to move the floor up or down.",
+    "hint": "Use the `mousePressed()` function to detect mouse clicks. On left-click, set the ball's position to the mouse coordinates. On right-click, adjust the floor's position vertically. Use the mouseButton identifier.",
+    "flags": [
+      "mousePressed()",
+      "ball=createVector(mouseX,mouseY)",
+      "floor.y=mouseY"
+    ],
+    "feedbacks": [
+      "❌ `mousePressed()`関数を使用してマウスクリックを検出することを忘れないでください！\n",
+      "❌ 左クリックでボールの位置をマウス座標に更新することを確認してください！\n",
+      "❌ 右クリックで床が上下に動くようにすることを確認してください！\n"
+    ]
+  }
+]
