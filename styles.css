@@ -5,15 +5,29 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.gridHorizontalSplit {
+    max-height: 100%;
+    max-width: 100%;
+    display: grids;
+    grid-template-rows: 50% 50%;
+    grid-gap: 0px;
+    padding: 0px;
+    overflow: auto; /* Prevent overflow */
+}
+
 #left, #right {
-    flex: 1;
     padding: 20px;
     overflow: auto;
 }
 
 #left {
-    border-right: 2px solid #ccc;
+    flex: 1;
+    border-right: 5px solid #ccc;
     background: #f9f9f9;
+}
+
+#right {
+    flex: 2;
 }
 
 #task {
@@ -34,8 +48,41 @@ iframe {
 
 button {
     margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     font-size: 16px;
+    width: 100%;
+}
+
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+
+    margin-top: 10px;
+
+    width: 100%;
+    height: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+/* Styling the "value" of the progress bar */
+progress::-webkit-progress-value {
+    background: linear-gradient(to right, #9e72c3, #924dbf, #7338a0, #4a2574, #0f0529); /* Gradient effect */
+    border-radius: 10px; /* Match outer border radius */
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Styling the track */
+progress::-webkit-progress-bar {
+    background-color: #e0e0e0; /* Gray track */
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 #feedback {

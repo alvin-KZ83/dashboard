@@ -3,27 +3,27 @@ const tasks = [
     {
         task: "Set up the canvas and define variables",
         desc: "Create a canvas of size 400x800 pixels. Define vectors for gravity (0, 0.098), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
-        hint: "Use `createVector()` to define the gravity, velocity, ball position, and floor position."
+        hint: "Use createVector() to define the gravity, velocity, ball position, and floor position."
     },
     {
         task: "Draw the ball and floor",
         desc: "Use the vectors you created for the ball and the floor to draw them onto the canvas. The ball should be drawn as a circle, and the floor should be a rectangle at the bottom of the canvas.",
-        hint: "Use the `circle()` function for the ball and the `rect()` function for the floor. Use the vectors for their positions and sizes."
+        hint: "Use the circle() function for the ball and the rect() function for the floor. Use the vectors for their positions and sizes."
     },
     {
         task: "Implement gravity and ball movement",
         desc: "Add gravity to the ball's velocity. Then, update the ball’s position based on its velocity. The ball should move continuously downward due to gravity.",
-        hint: "Since `draw()` runs 60 times per second, apply the gravity to the velocity every frame, and update the ball's position accordingly. Use the `add()` method for velocity and gravity vectors."
+        hint: "Since draw() runs 60 times per second, apply the gravity to the velocity every frame, and update the ball's position accordingly. Use the add() method for velocity and gravity vectors."
     },
     {
         task: "Detect collision between the ball and the floor",
         desc: "When the ball touches the floor, it should bounce. Implement a check to detect when the ball’s bottom edge reaches the floor and reverse its velocity when it collides.",
-        hint: "Think about how the ball’s velocity changes when it hits the floor. Use an `if` statement to check if the ball has reached the floor and reverse the vertical velocity (`v.y`) to simulate bouncing."
+        hint: "Think about how the ball’s velocity changes when it hits the floor. Use an if statement to check if the ball has reached the floor and reverse the vertical velocity (v.y) to simulate bouncing."
     },
     {
         task: "Allow ball and floor movement",
         desc: "Enable interaction with the ball and floor using the mouse. Left-click should move the ball to where the mouse is, and right-click should allow you to move the floor up or down.",
-        hint: "Use the `mousePressed()` function to detect mouse clicks. On left-click, set the ball's position to the mouse coordinates. On right-click, adjust the floor's position vertically."
+        hint: "Use the mousePressed() function to detect mouse clicks. On left-click, set the ball's position to the mouse coordinates. On right-click, adjust the floor's position vertically."
     },
 ];
 
@@ -39,7 +39,8 @@ function displayTask() {
         <p><strong>Task:</strong> ${currentTask.task}</p>
         <p><strong>Description:</strong> ${currentTask.desc}</p>
         <p><strong>Hint:</strong> ${currentTask.hint}</p>
-    `;
+    ;
+    `
 }
 
 // Validate the student's code against the task
@@ -57,6 +58,8 @@ function checkCode() {
             let flag3 = code.includes("v") && code.includes("createVector(0, 0)")
             let flag4 = code.includes("ball")
             let flag5 = code.includes("floor")
+
+            let flags = 5
 
             let feedbackText = ""
             let points = 0
@@ -103,7 +106,8 @@ function checkCode() {
             }
 
             // Update progress bar
-            let progress = (points / 5) * 100; // Calculate percentage
+            let progress = (points / flags) * 100; // Calculate percentage
+            document.getElementById("taskProgress").max = flags; // Set the flags
             document.getElementById("taskProgress").value = points; // Set the progress value
 
             // Update pie chart
@@ -117,7 +121,7 @@ function checkCode() {
                 currentTaskIndex++;  // Move to the next task
                 showNextTask();  // Update the task on the page
             } else {
-                document.getElementById("feedback").innerText = "❌ Try again. Make sure you're using `circle()` for the ball and `rect()` for the floor.";
+                document.getElementById("feedback").innerText = "❌ Try again. Make sure you're using circle() for the ball and rect() for the floor.";
             }
             break;
         case 2: // Task 3: Implement gravity and ball movement
@@ -146,54 +150,13 @@ function checkCode() {
                 document.getElementById("feedback").innerText = "✅ Awesome! Ball and floor are now interactive.";
                 // Optionally, you could finish the task or loop back to the first task
             } else {
-                document.getElementById("feedback").innerText = "❌ Try again. Ensure you're using `mousePressed()` to handle the interactions.";
+                document.getElementById("feedback").innerText = "❌ Try again. Ensure you're using mousePressed() to handle the interactions.";
             }
             break;
         default:
             document.getElementById("feedback").innerText = "All tasks complete!";
             break;
     }
-}
-
-// Function to update the pie chart
-function updatePieChart(points, maxPoints) {
-    const canvas = document.getElementById("pieChart");
-    const ctx = canvas.getContext("2d");
-
-    // Clear the previous pie chart
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Calculate the percentage of completion
-    const percentage = (points / maxPoints) * 100;
-
-    // Draw the background circle (in light gray)
-    ctx.beginPath();
-    ctx.arc(100, 100, 90, 0, 2 * Math.PI);
-    ctx.fillStyle = "#f0f0f0";  // Light gray background
-    ctx.fill();
-
-    // Draw the filled arc representing progress
-    const startAngle = -0.5 * Math.PI;  // Start at the top (12 o'clock position)
-    const endAngle = startAngle + (percentage / 100) * (2 * Math.PI);
-
-    ctx.beginPath();
-    ctx.arc(100, 100, 90, startAngle, endAngle);
-    ctx.lineTo(100, 100);  // Create a pie shape
-    ctx.fillStyle = "#4caf50";  // Green color for the progress
-    ctx.fill();
-
-    // Draw a white circle in the center to create a "donut" effect
-    ctx.beginPath();
-    ctx.arc(100, 100, 60, 0, 2 * Math.PI);
-    ctx.fillStyle = "#fff";  // White center
-    ctx.fill();
-
-    // Draw the percentage text in the center
-    ctx.fillStyle = "#333";  // Dark color for text
-    ctx.font = "20px Arial";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(`${percentage.toFixed(0)}%`, 100, 100); // Show the percentage in the center
 }
 
 // Function to update the displayed task after completion
@@ -205,28 +168,24 @@ function showNextTask() {
             <p><strong>Task:</strong> ${nextTask.task}</p>
             <p><strong>Description:</strong> ${nextTask.desc}</p>
             <p><strong>Hint:</strong> ${nextTask.hint}</p>
-        `;
+            `
+        ;
         checkCode();
     } else {
-        document.getElementById("task").innerHTML = `<p><strong>All tasks completed! Great job!</p>`;
+        document.getElementById("task").innerHTML = 
+        `<p><strong>All tasks completed! Great job!</p>;`
     }
 }
 
-
-// Go to the next task (used by the debug button)
-function nextTask() {
-    // Increment task index to show the next task
-    currentTaskIndex++;
-
-    // If there are no more tasks, alert the user
-    if (currentTaskIndex >= tasks.length) {
-        alert("Congratulations! You've completed all the tasks.");
-        return; // Stop execution if all tasks are completed
-    }
-
-    // Display the next task
-    displayTask();
+function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
 }
 
 // Initially display the first task
 displayTask();
+
+document.getElementById("codeInput").addEventListener("input", debounce(checkCode, 300));
