@@ -37,23 +37,46 @@ fetch('tasks.json')
     })
     .catch(error => console.error('タスクの読み込みエラー:', error))  // Translated error message
 
+// Linear interpolation function for RGB
+function interpolateColor(startColor, endColor, factor) {
+    const r = Math.round(startColor[0] + (endColor[0] - startColor[0]) * factor);
+    const g = Math.round(startColor[1] + (endColor[1] - startColor[1]) * factor);
+    const b = Math.round(startColor[2] + (endColor[2] - startColor[2]) * factor);
+    return [r, g, b];
+}
+
 // Function to adjust the colors based on styleCount
 function updateColorsBasedOnStyleCount(styleCount) {
-    // Calculate the intensity for each color channel
-    let intensity = Math.min(255, styleCount * 10); // Increase intensity, capped at 255
+    // Normalize styleCount to a range from 0 to 1
+    const factor = Math.min(1, styleCount / 3); // Normalize between 0 and 1
 
-    // Adjust the colors
-    primaryColor = `rgb(${30 + intensity}, 30, 30)`; // Red
-    secondaryColor = `rgb(60, ${60 + intensity}, 60)`; // Green
-    tertiaryColor = `rgb(90, 90, ${90 + intensity})`; // Blue
+    // Define start and end colors for primary, secondary, and tertiary
+    const primaryStart = [30, 30, 30]; // Dark Red
+    const primaryEnd = [255, 0, 0];   // Bright Red
+
+    const secondaryStart = [60, 60, 60]; // Dark Green
+    const secondaryEnd = [0, 255, 0];   // Bright Green
+
+    const tertiaryStart = [90, 90, 90]; // Dark Blue
+    const tertiaryEnd = [0, 0, 255];   // Bright Blue
+
+    // Interpolate colors based on the normalized styleCount
+    const primary = interpolateColor(primaryStart, primaryEnd, factor);
+    const secondary = interpolateColor(secondaryStart, secondaryEnd, factor);
+    const tertiary = interpolateColor(tertiaryStart, tertiaryEnd, factor);
 
     // Set the CSS variables dynamically
+    primaryColor = `rgb(${primary[0]}, ${primary[1]}, ${primary[2]})`;
+    secondaryColor = `rgb(${secondary[0]}, ${secondary[1]}, ${secondary[2]})`;
+    tertiaryColor = `rgb(${tertiary[0]}, ${tertiary[1]}, ${tertiary[2]})`;
+
+    // Set the CSS variables for use in your styles
     document.documentElement.style.setProperty('--primary-color', primaryColor);
     document.documentElement.style.setProperty('--secondary-color', secondaryColor);
     document.documentElement.style.setProperty('--tertiary-color', tertiaryColor);
     document.documentElement.style.setProperty('--animation-speed', speed);
-
 }
+
 
 // Display the current task
 function displayTask() {
