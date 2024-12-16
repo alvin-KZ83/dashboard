@@ -1,32 +1,12 @@
-// Task array to store the tasks dynamically
-const tasks = [
-    {
-        task: "Set up the canvas and define variables",
-        desc: "Create a canvas of size 400x800 pixels. Define vectors for gravity (0, 0.098), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
-        hint: "Use createVector() to define the gravity, velocity, ball position, and floor position."
-    },
-    {
-        task: "Draw the ball and floor",
-        desc: "Use the vectors you created for the ball and the floor to draw them onto the canvas. The ball should be drawn as a circle, and the floor should be a rectangle at the bottom of the canvas.",
-        hint: "Use the circle() function for the ball and the rect() function for the floor. Use the vectors for their positions and sizes."
-    },
-    {
-        task: "Implement gravity and ball movement",
-        desc: "Add gravity to the ball's velocity. Then, update the ball’s position based on its velocity. The ball should move continuously downward due to gravity.",
-        hint: "Since draw() runs 60 times per second, apply the gravity to the velocity every frame, and update the ball's position accordingly. Use the add() method for velocity and gravity vectors."
-    },
-    {
-        task: "Detect collision between the ball and the floor",
-        desc: "When the ball touches the floor, it should bounce. Implement a check to detect when the ball’s bottom edge reaches the floor and reverse its velocity when it collides.",
-        hint: "Think about how the ball’s velocity changes when it hits the floor. Use an if statement to check if the ball has reached the floor and reverse the vertical velocity (v.y) to simulate bouncing."
-    },
-    {
-        task: "Allow ball and floor movement",
-        desc: "Enable interaction with the ball and floor using the mouse. Left-click should move the ball to where the mouse is, and right-click should allow you to move the floor up or down.",
-        hint: "Use the mousePressed() function to detect mouse clicks. On left-click, set the ball's position to the mouse coordinates. On right-click, adjust the floor's position vertically."
-    },
-];
+let tasks = []
 
+fetch('tasks.json')
+    .then(response => response.json())
+    .then(data => {
+        tasks = data;
+        displayTask();
+    })
+    .catch(error => console.error('Error loading tasks:', error))
 
 let currentTaskIndex = 0; // Track the current task index
 
@@ -184,8 +164,5 @@ function debounce(func, delay) {
         timeout = setTimeout(() => func.apply(this, args), delay);
     };
 }
-
-// Initially display the first task
-displayTask();
 
 document.getElementById("codeInput").addEventListener("input", debounce(checkCode, 300));
