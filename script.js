@@ -15,9 +15,14 @@ function displayTask() {
     const taskDiv = document.getElementById("task");
     const currentTask = tasks[currentTaskIndex];
 
-    taskDiv.innerHTML = `<p><strong>タスク:</strong> ${currentTask.task}
-        <p><strong>説明:</strong> ${currentTask.desc}
-        <p><strong>ヒント:</strong> ${currentTask.hint}</p>`  // Translated "Hint"
+    taskDiv.innerHTML = `
+        <h2>タスク</h2>
+        <p>${currentTask.task}</p>
+        <h2>説明</h2>
+        <p>${currentTask.desc}</p>
+        <h2>ヒント</h2>
+        <p>${currentTask.hint}</p>
+        `
 }
 
 function checkCode() {
@@ -71,9 +76,14 @@ function showNextTask() {
     const nextTask = tasks[currentTaskIndex];
 
     if (nextTask) {
-        document.getElementById("task").innerHTML = `<p><strong>タスク:</strong> ${nextTask.task}
-            <p><strong>説明:</strong> ${nextTask.desc}
-            <p><strong>ヒント:</strong> ${nextTask.hint}</p>`;  // Translated "Hint"
+        document.getElementById("task").innerHTML = `
+        <h2>タスク</h2>
+        <p>${currentTask.task}</p>
+        <h2>説明</h2>
+        <p>${currentTask.desc}</p>
+        <h2>ヒント</h2>
+        <p>${currentTask.hint}</p>
+        `;  // Translated "Hint"
     } else {
         document.getElementById("task").innerHTML = 
         `<p><strong>すべてのタスクが完了しました！素晴らしい仕事です！</strong></p>`;  // Translated "All tasks completed! Great job!"
@@ -89,3 +99,4 @@ function debounce(func, delay) {
 }
 
 document.getElementById("codeInput").addEventListener("input", debounce(checkCode, 300));
+

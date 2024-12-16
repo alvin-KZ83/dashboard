@@ -1,8 +1,33 @@
 body {
+    background-color: #303030;
     margin: 0;
     display: flex;
     height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: Helvetica, sans-serif;
+}
+
+h1, h2, p {
+    color:#505050;
+    margin: 0;
+    margin-top: 10px;
+    font: inherit;
+    display: block;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+p:hover {
+    color: #ff0060;
+    font-size: 1.2rem;
 }
 
 .gridHorizontalSplit {
@@ -11,7 +36,7 @@ body {
     display: grids;
     grid-template-rows: 20% 20% 20% 20% 20%;
     grid-gap: 0px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     overflow: auto; /* Prevent overflow */
 }
 
@@ -31,13 +56,23 @@ body {
 }
 
 #task {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
 textarea {
-    width: 100%;
-    height: 200px;
+    border-radius: 10px;
+    width: 99%;
+    height: 100px;
     font-family: monospace;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+
+textarea:hover {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }
 
 iframe {
@@ -88,5 +123,8 @@ progress::-webkit-progress-bar {
 
 #feedback {
     margin-top: 20px;
-    color: green;
+    color: #0f0529;
+    font-size: 0.8rem;
+    position: relative; /* Required to position the popup relative to this element */
 }
+
