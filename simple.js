@@ -1,19 +1,20 @@
 function setup() {
-  createCanvas(200, 600);
-  g = createVector(0, 0.098);
+  createCanvas(400, 600);
+  g = createVector(0, 1);
   v = createVector(0, 0);
-  ball = createVector(100, 200);
+  ball = createVector(200, 200);
   floor = createVector(0, 500);
 }
 
 function draw() {
   background(50);
-  circle(ball.x, ball.y, 50);
+  circle(ball.x, ball.y, 60);
   v.add(g);
   ball.add(v);
-  rect(floor.x, floor.y, 400, 20);
-  if (ball.y + 50 / 2 >= floor.y) {
-    v.mult(-1);
+  rect(floor.x, floor.y, 400, 30);
+  if (ball.y + 30 >= floor.y) {
+    ball.y = floor.y - 30;
+    v.y *= -1;
   }
 }
 

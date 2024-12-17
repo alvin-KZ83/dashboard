@@ -1,18 +1,18 @@
 [
   {
     "task": "Set up the canvas and define variables",
-    "desc": "Create a canvas of size 400x800 pixels. Define vectors for gravity (0, 0.098), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
+    "desc": "Create a canvas of size 400 x 600 pixels. Define vectors for gravity (0, 1), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
     "hint": "Use `createVector()` to define the gravity, velocity, ball position, and floor position.",
     "flags": [
-      "createCanvas(400,800)",
-      "g=createVector(0,0.098)",
+      "createCanvas(400,600)",
+      "g=createVector(0,1)",
       "v=createVector(0,0)",
       "ball",
       "floor"
     ],
     "feedbacks": [
       "❌ キャンバスを正しく設定することを忘れないでください！\n",
-      "❌ 重力 'g' を正しく設定することを忘れないでください！（0, 0.098）\n",
+      "❌ 重力 'g' を正しく設定することを忘れないでください！（0, 1）\n",
       "❌ 速度 'v' を正しく設定することを忘れないでください！（0, 0）\n",
       "❌ ボールの位置を定義することを忘れないでください！\n",
       "❌ 床の位置を定義することを忘れないでください！\n"
@@ -20,19 +20,19 @@
   },
   {
     "task": "Draw the ball and floor",
-    "desc": "Use the vectors you created for the ball and the floor to draw them onto the canvas. The ball should be drawn as a circle of size 50, and the floor should be a rectangle at the bottom of the canvas.",
+    "desc": "Use the vectors you created for the ball and the floor to draw them onto the canvas. The ball should be drawn as a circle of size 60, and the floor should be a rectangle at the bottom of the canvas with size (400, 30).",
     "hint": "Use the `circle()` function for the ball and the `rect()` function for the floor. Use the vectors for their positions and sizes.",
     "flags": [
       "circle(",
       "ball.x,ball.y",
-      ",50)",
+      ",60)",
       "rect(",
       "floor.x,floor.y"
     ],
     "feedbacks": [
       "❌ `circle(x, y, r)` 関数を正しく使用することを忘れないでください！\n",
       "❌ 定義したボールの位置を使用することを忘れないでください！\n",
-      "❌ ボールのサイズを50に設定することを忘れないでください！\n",
+      "❌ ボールのサイズを60に設定することを忘れないでください！\n",
       "❌ `rect(x, y, w, h)` 関数を正しく使用することを忘れないでください！\n",
       "❌ 定義した床の位置を使用することを忘れないでください！\n"
     ]
@@ -56,8 +56,8 @@
     "hint": "Think about how the ball’s velocity changes when it hits the floor. Use an `if` statement to check if the ball has reached the floor and reverse the vertical velocity (`v.y`) to simulate bouncing.",
     "flags": [
       "if",
-      "ball.y+50/2>=floor.y",
-      "v.mult(-1)"
+      "ball.y+60/2>=floor.y",
+      "v.y=v.y*-1"
     ],
     "feedbacks": [
       "❌ `if`文を使用することを忘れないでください！\n",
