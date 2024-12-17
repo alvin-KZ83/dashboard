@@ -181,5 +181,29 @@ function debounce(func, delay) {
     };
 }
 
+function saveCode() {
+    // Get the text from the textarea
+    const codeContent = document.getElementById("codeInput").value;
+
+    // Get the current timestamp
+    const timestamp = new Date().toISOString().replace(/[:.-]/g, '_'); // Format the timestamp
+    const fileName = `code_${timestamp}.txt`;
+
+    // Create a Blob from the text
+    const blob = new Blob([codeContent], { type: 'text/plain' });
+
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+
+    // Trigger the download
+    link.click();
+
+    // Clean up
+    URL.revokeObjectURL(link.href);
+}
+
+
 document.getElementById("codeInput").addEventListener("input", debounce(checkCode, 300));
 
