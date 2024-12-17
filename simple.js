@@ -12,9 +12,9 @@ function draw() {
   v.add(g);
   ball.add(v);
   rect(floor.x, floor.y, 400, 30);
-  if (ball.y + 30 >= floor.y) {
+  if (ball.y + 60 / 2 >= floor.y) {
     ball.y = floor.y - 30;
-    v.y *= -1;
+    v.y = v.y * -1;
   }
 }
 
