@@ -4,11 +4,11 @@
     "desc": "Create a canvas of size 400 x 600 pixels. Define vectors for gravity (0, 1), velocity (0, 0), the ball’s position, and the floor's position. Make sure the ball is initially positioned above the floor.",
     "hint": "Use `createVector()` to define the gravity, velocity, ball position, and floor position.",
     "flags": [
-      "createCanvas(200,600)",
-      "g=1",
-      "v=0",
-      "x",
-      "y"
+      "createCanvas(400,600)",
+      "g=createVector(0,1)",
+      "v=createVector(0,0)",
+      "ball",
+      "floor"
     ],
     "feedbacks": [
       "❌ キャンバスを正しく設定することを忘れないでください！\n",
@@ -24,8 +24,10 @@
     "hint": "Use the `circle()` function for the ball and the `rect()` function for the floor. Use the vectors for their positions and sizes.",
     "flags": [
       "circle(",
-      "x,y",
-      ",60)"
+      "ball.x,ball.y",
+      ",60)",
+      "rect(",
+      "floor.x,floor.y"
     ],
     "feedbacks": [
       "❌ `circle(x, y, r)` 関数を正しく使用することを忘れないでください！\n",
@@ -40,8 +42,8 @@
     "desc": "Add gravity to the ball's velocity. Then, update the ball’s position based on its velocity. The ball should move continuously downward due to gravity.",
     "hint": "Since `draw()` runs 60 times per second, apply the gravity to the velocity every frame, and update the ball's position accordingly. Use the `add()` method for velocity and gravity vectors.",
     "flags": [
-      "v=v+g",
-      "y=y+v"
+      "v.add(g)",
+      "ball.add(v)"
     ],
     "feedbacks": [
       "❌ 速度に正しく重力を加えることを忘れないでください！\n",
@@ -54,8 +56,8 @@
     "hint": "Think about how the ball’s velocity changes when it hits the floor. Use an `if` statement to check if the ball has reached the floor and reverse the vertical velocity (`v.y`) to simulate bouncing.",
     "flags": [
       "if",
-      "y+60/2>=600",
-      "v=v*-1"
+      "ball.y+60/2>=floor.y",
+      "v.y=v.y*-1"
     ],
     "feedbacks": [
       "❌ `if`文を使用することを忘れないでください！\n",
