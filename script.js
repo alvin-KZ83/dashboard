@@ -29,7 +29,7 @@ document.documentElement.style.setProperty('--tertiary-color', tertiaryColor);
 document.documentElement.style.setProperty('--animation-speed', speed);
 
 
-fetch('tasks.json')
+fetch('tasks_original.json')
     .then(response => response.json())
     .then(data => {
         tasks = data;
